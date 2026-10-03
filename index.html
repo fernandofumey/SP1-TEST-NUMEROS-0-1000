@@ -353,7 +353,10 @@
                 const isCorrect = (uAns === cAns);
                 
                 if (isCorrect) scoreCount++;
-                resultsSummaryArr.push(`${idx + 1}${isCorrect ? 'r' : 'w'}`);
+                
+                const resultStatus = isCorrect ? 'right' : 'wrong';
+                const studentAnswerDisplay = userAnswers[idx] ? userAnswers[idx] : "[no answer]";
+                resultsSummaryArr.push(`question ${idx + 1} ${resultStatus}: ${studentAnswerDisplay}`);
             });
 
             const percentage = Math.round((scoreCount / quizQuestions.length) * 100);
@@ -373,7 +376,7 @@
                 period: studentData.period,
                 score: `${percentage}% (${scoreCount}/${quizQuestions.length})`,
                 cheatCount: cheatCount,
-                results: resultsSummaryArr.join(', ')
+                results: resultsSummaryArr.join('; ')
             };
 
             if (GOOGLE_SHEET_WEB_APP_URL) {
